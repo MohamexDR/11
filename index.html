@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM COMPROMISED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #ff0000, #000000);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .skull {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .main-title {
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 3px 3px 0px #ff0000;
+            margin-bottom: 20px;
+            animation: flicker 1.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #ffff00;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0px #000000;
+        }
+        
+        .message {
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+        }
+        
+        .warning-box {
+            background: #ff0000;
+            color: #ffffff;
+            padding: 15px;
+            margin: 20px 0;
+            border: 3px solid #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .hacker-signature {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        @keyframes glitch-2 {
+            0% { transform: translate(0); }
+            20% { transform: translate(2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(-2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrix"></div>
+    
+    <div class="container">
+        <div class="skull">💀</div>
+        
+        <h1 class="main-title glitch" data-text="SYSTEM COMPROMISED">
+            SYSTEM COMPROMISED
+        </h1>
+        
+        <div class="subtitle">
+            Your security has been breached
+        </div>
+        
+        <div class="warning-box">
+            ⚠️ UNAUTHORIZED ACCESS DETECTED ⚠️
+        </div>
+        
+        <div class="message">
+            <p>This website has been temporarily taken over for demonstration purposes.</p>
+            <p>All your data belongs to us now. Just kidding - this is just a demo!</p>
+            <p>Remember to always keep your systems updated and secure.</p>
+        </div>
+        
+        <div style="color: #ff6600; font-size: 16px;">
+            🔥 System Status: DEFACED 🔥<br>
+            Time of breach: <span id="timestamp"></span>
+        </div>
+    </div>
+    
+    <div class="hacker-signature">
+        - Ethical Hacker Demo
+    </div>
+    
+    <script>
+        // Display current timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Matrix rain effect (simplified)
+        const matrix = document.getElementById('matrix');
+        const chars = '01';
+        
+        function createMatrixRain() {
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement('span');
+                span.textContent = chars[Math.floor(Math.random() * chars.length)];
+                span.style.position = 'absolute';
+                span.style.left = Math.random() * 100 + '%';
+                span.style.top = Math.random() * 100 + '%';
+                span.style.color = '#00ff00';
+                span.style.fontSize = '12px';
+                span.style.opacity = Math.random();
+                matrix.appendChild(span);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    if (span.parentNode) {
+                        span.parentNode.removeChild(span);
+                    }
+                }, 3000);
+            }
+        }
+        
+        // Create matrix effect every 500ms
+        setInterval(createMatrixRain, 500);
+        
+        // Add some console messages for effect
+        console.log('%c🚨 SECURITY BREACH DETECTED 🚨', 'color: red; font-size: 20px; font-weight: bold;');
+        console.log('%cThis is a demonstration only - no actual breach occurred!', 'color: green; font-size: 14px;');
+    </script>
+</body>
+</html>
